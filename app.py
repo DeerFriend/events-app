@@ -82,6 +82,7 @@ def perform_event_ticketmaster_api_call(url):
     # print(response)
     if response.status_code != 200:
         raise ValueError("API returned error " + str(response.status_code))
+    response.raise_for_status()
     data = json.loads(response.text)
     # print(data)
     if "_embedded" not in data:
@@ -90,8 +91,12 @@ def perform_event_ticketmaster_api_call(url):
     events = []
     event_converter = EventConverter(0)
     for raw_event in raw_events:
-        event = event_converter.ticketmaster_event_to_app_event(raw_event)
-        events.append(event)
+        try:
+            event = event_converter.ticketmaster_event_to_app_event(raw_event)
+            events.append(event)
+        except:
+            print("the converter failed to convert one TicketMaster event into an instance of event class, ")
+            print("missing field?")
     return events
 
 
