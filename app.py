@@ -4,8 +4,6 @@ import requests, json
 from event import Event
 from event_converter import EventConverter
 
-# from requests.exceptions import HTTPError # Potentially TODO
-
 
 app = Flask(__name__)
 
@@ -75,9 +73,7 @@ def details_page():
 
 @app.route("/api/event/<string:event_id>/like", methods=['PATCH'])
 def api_endpoint_event_like(event_id):
-    # TODO
     return '', 204  #no content http status code
-
 
 
 def perform_event_ticketmaster_api_call(url):
@@ -132,4 +128,5 @@ def retrieve_mock_event(event_id):
     return event_id
 
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
