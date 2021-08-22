@@ -1,5 +1,5 @@
 from unittest import TestCase
-from app import TICKETMASTER_API_EVENTDISCOVERY_URL, build_searchevents_url, perform_event_ticketmaster_api_call
+from app import TICKETMASTER_API_EVENTDISCOVERY_URL, build_searchevents_url, perform_event_ticketmaster_api_call, build_singleeventretrieval_url, mock_events
 from datetime import datetime
 import responses
 
@@ -12,8 +12,10 @@ class TestBuildUrls(TestCase):
         self.assertEqual(expected_result, actual_result)
 
     def test_build_singleeventretrieval_url(self):
-        # TODO
-        pass
+        expected_result = TICKETMASTER_API_EVENTDISCOVERY_URL + "&id=" + "1AwZA-kGkdEUfsF"
+        actual_result = build_singleeventretrieval_url("1AwZA-kGkdEUfsF")
+        self.assertEqual(expected_result, actual_result)
+
 
 
 class TestTicketmasterApiCall(TestCase):
@@ -32,5 +34,6 @@ class TestTicketmasterApiCall(TestCase):
 
     @responses.activate
     def test_ticketmastercall_many_event(self):
-        # TODO
+        # We would have liked to run this test for several events; however we struggled to figure out how to do so and
+        # also ran out of time to spend on figuring it out
         pass
